@@ -1,15 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, ScrollView, Modal, Image, StyleSheet, Alert } from 'react-native';
 import { ActivityIndicator, Appbar, Button, Card, Checkbox, Divider, Menu, TextInput } from 'react-native-paper';
-import { Titlebar } from '../../components/Titlebar';
+import { Titlebar } from '../../components/NavBar';
 import { SvgIconHolder } from '../../components/SvgIconHolder';
 import Svg, { Path } from 'react-native-svg';
 import { Text } from '@react-native-material/core';
-import { formatDate } from '../../utils/GlobalFunctions';
+import { formatDate, listADocuments, statesArray } from '../../utils/GlobalFunctions';
 import axios from 'axios';
 import { API } from '../../utils/controller';
 import { DateInput } from '../../components/DateInput';
 import SignatureCapture from '../../components/SignatureCapture';
+import StatePicker from '../../components/Picker';
+import SplashScreen from '../../components/SpalshScreen';
+import DocumentPicker from '../../components/DocumentPicker';
 
 const SectionTwoForm = ({ route, navigation }) => {
   const [loading, setLoading] = useState(true);
@@ -20,10 +23,21 @@ const SectionTwoForm = ({ route, navigation }) => {
   const [sending, setSending] = useState(false);
   const [img, setImg] = useState('');
   const [loadingImg, setLoadingImg] = useState(true);
+
+  const pickerRef = useRef();
+
+function open() {
+  pickerRef.current.focus();
+}
+
+function close() {
+  pickerRef.current.blur();
+}
  const date = new Date();
   const [formData, setFormData] = useState({
     listA:{
     documentTitle: '',
+    documentCode:'',
     issuingAuthority: '',
     documentNumber: '',
     expirationDate: date,
@@ -31,6 +45,7 @@ const SectionTwoForm = ({ route, navigation }) => {
     },
     listB: {
     documentTitle: '',
+    documentCode:'',
     issuingAuthority: '',
     documentNumber: '',
     expirationDate: date,
@@ -38,6 +53,7 @@ const SectionTwoForm = ({ route, navigation }) => {
     },
     listC:{
     documentTitle: '',
+    documentCode:'',
     issuingAuthority: '',
     documentNumber: '',
     expirationDate: date,
@@ -170,6 +186,7 @@ const SectionTwoForm = ({ route, navigation }) => {
         [property]: text,
       },
     }));
+    console.log(formData.listA)
   };
 
   const handleChangeListB = (property, text) => {
@@ -247,7 +264,7 @@ const SectionTwoForm = ({ route, navigation }) => {
 
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return <SplashScreen/>
   } else {
     return (
       <View style={{ flex: 1 }}>
@@ -329,7 +346,7 @@ const SectionTwoForm = ({ route, navigation }) => {
           
          
             <View style={styles.gridItem100}>
-            <Text style={{fontWeight:'bold', marginVertical:2}} variant='button'>Document Title *</Text>
+            {/* <Text style={{fontWeight:'bold', marginVertical:2}} variant='button'>Document Title *</Text>
             <TextInput
             name="listA"
             id="documentTitle"
@@ -337,7 +354,12 @@ const SectionTwoForm = ({ route, navigation }) => {
             value={formData.listA.documentTitle}
             onChangeText={(text) => handleChangeListA('documentTitle', text)}
 
-            />
+            /> */}
+            <DocumentPicker 
+            docName={formData.listA.documentTitle} 
+            handleInputChange={handleChangeListA} 
+            handleInputCodeChange={handleChangeListA} 
+            docType={listADocuments}/>
             </View>
 
             <View style={styles.gridItem100}>
@@ -562,7 +584,26 @@ const SectionTwoForm = ({ route, navigation }) => {
            <Divider style={{marginVertical:5}}/>
 
            {
-            employerAddressArr.map(o=>{
+            employerAddressArr.map((o, index)=>{
+              if(index < 3)
+              return (
+                <View style={styles.gridItem100}>
+                <Text style={{fontWeight:'bold', marginVertical:2}} variant='button'>{o.name}</Text>
+                <TextInput
+                mode="outlined"
+                value={o.value}
+                onChangeText={(text) => handleChange(`${o.change}`, text)}
+                />
+                </View>
+              )
+            })
+           }
+         
+
+   <StatePicker formData={formData} handleInputChange={handleChange}/>
+{
+            employerAddressArr.map((o, index)=>{
+              if(index > 3)
               return (
                 <View style={styles.gridItem100}>
                 <Text style={{fontWeight:'bold', marginVertical:2}} variant='button'>{o.name}</Text>

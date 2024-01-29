@@ -16,7 +16,9 @@ const I9Setup = ({ navigation }) => {
     phoneNumber: '',
     date: '',
     communicationMethod: '',
-    i9Data: {},
+    sectionOne:{},
+    sectionTwo:{},
+    everifyData:{}
   });
 
   useEffect(() => {

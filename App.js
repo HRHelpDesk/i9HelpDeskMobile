@@ -14,6 +14,8 @@ import SectionOne from './app/screens/detail-screens/SectionOne';
 import SectionTwo from './app/screens/detail-screens/SectionTwo';
 import { SupplementB } from './app/screens/detail-screens/SupplementB';
 import SectionTwoForm from './app/screens/forms/SectionTwoForm';
+import EverifySubmit from './app/screens/forms/EverifySubmit';
+import SplashScreen from './app/components/SpalshScreen';
 
 const Stack = createStackNavigator();
 
@@ -43,7 +45,7 @@ const App = () => {
     checkToken();
   }, []);
 if(isLoading === true){
-  return (<Text>Loading...</Text>)
+  return (<SplashScreen/>)
 } else {
   
   return (
@@ -78,10 +80,19 @@ if(isLoading === true){
         options={{ headerShown: false }}
         name="supplement-b" component={SupplementB} />
 
-<Stack.Screen
+      <Stack.Screen
         options={{ headerShown: false }}
         name="section-two-form" component={SectionTwoForm} />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="submit-everify" component={EverifySubmit} />
+
+        
+
       </Stack.Navigator>
+
+      
     </NavigationContainer>
   );
 }

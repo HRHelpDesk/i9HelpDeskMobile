@@ -11,6 +11,7 @@ import AutoImage from "../../components/AutoImage";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import axios from "axios";
 import { API } from "../../utils/controller";
+import SplashScreen from "../../components/SpalshScreen";
 
 
 
@@ -226,7 +227,7 @@ export const SupplementB = ({navigation, route})=>{
   }, [update]);
 
 if(loading){
-    return <ActivityIndicator/>
+    return <SplashScreen/>
 } else {
     
     return (

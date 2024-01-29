@@ -9,6 +9,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { View } from 'react-native';
 import { API } from '../utils/controller';
 import { SvgIconHolder } from '../components/SvgIconHolder';
+import SplashScreen from '../components/SpalshScreen';
 
 const Home = ({ navigation }) => {
   const [user, setUser] = useState(null);
@@ -68,7 +69,7 @@ const Home = ({ navigation }) => {
     closeMenu()
   };
   if(isLoading) {
-    <Text>Loading..</Text>
+  return <SplashScreen/>
   } else {
 
   return (

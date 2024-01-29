@@ -5,11 +5,12 @@ import axios from 'axios';
 import { API } from '../../utils/controller';
 import { Appbar, IconButton, Menu, Button, PaperProvider,Divider, Card, ActivityIndicator, Icon } from 'react-native-paper';
 import { Text } from '@react-native-material/core';
-import { formatDate } from '../../utils/GlobalFunctions';
-import { Titlebar } from '../../components/Titlebar';
+import { formatDate, statesArray } from '../../utils/GlobalFunctions';
+import { Titlebar } from '../../components/NavBar';
 import Svg, { Path } from 'react-native-svg';
 import { SvgIconHolder } from '../../components/SvgIconHolder';
 import { useFocusEffect } from '@react-navigation/native';
+import SplashScreen from '../../components/SpalshScreen';
 
 
 const SectionOne = ({ route, navigation }) => {
@@ -125,7 +126,7 @@ const SectionOne = ({ route, navigation }) => {
 
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return <SplashScreen/>;
   } else {
     
   return (
@@ -202,6 +203,8 @@ style={{display: sectionTwo?.submitted ? 'flex' : 'none',}}
               <Menu.Item style={{display: data.sectionOne.supplementA[0].lastName === '' ? 'none' :'flex'}} title="Supplement A" />
               <Divider/>
               <Menu.Item onPress={() => { closeQmMenu(); navigation.navigate('supplement-b', { a: a, b: b, sectionTwo: sectionTwo, sectionOne: data.sectionOne })}} title="Supplement B" />
+              <Divider/>
+              <Menu.Item onPress={() => { closeQmMenu(); navigation.navigate('submit-everify', { a: a, b: b })}} title="Start E-Verify" />
             </Menu>
             </View>
 <ScrollView>
@@ -291,7 +294,7 @@ style={{display: sectionTwo?.submitted ? 'flex' : 'none',}}
 
             <View style={styles.gridItem30}>
             <Text style={styles.sectionHeader}>State *</Text>
-            <Text style={styles.sectionP}>{data.sectionOne.state}</Text>
+            <Text style={styles.sectionP}>{statesArray[data.sectionOne.state]}</Text>
             </View>
             <View style={styles.gridItem30}>
             <Text style={styles.sectionHeader}>Zip Code *</Text>

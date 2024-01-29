@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Modal, Image, StyleSheet } from 'react-native';
 import { ActivityIndicator, Appbar, Button, Card, Divider, Menu } from 'react-native-paper';
-import { Titlebar } from '../../components/Titlebar';
+import { Titlebar } from '../../components/NavBar';
 import { SvgIconHolder } from '../../components/SvgIconHolder';
 import Svg, { Path } from 'react-native-svg';
 import { Text } from '@react-native-material/core';
-import { formatDate } from '../../utils/GlobalFunctions';
+import { formatDate, statesArray } from '../../utils/GlobalFunctions';
+import SplashScreen from '../../components/SpalshScreen';
 
 const SectionTwo = ({ route, navigation }) => {
   const [loading, setLoading] = useState(true);
@@ -65,7 +66,7 @@ const SectionTwo = ({ route, navigation }) => {
   };
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return <SplashScreen/>
   } else {
     return (
       <View style={{ flex: 1 }}>
@@ -279,7 +280,7 @@ const SectionTwo = ({ route, navigation }) => {
 
            <View style={styles.gridItem30}>
           <Text style={styles.sectionHeader}>State</Text>
-          <Text style={styles.sectionP}>{sectionTwo.employerState}</Text>         
+          <Text style={styles.sectionP}>{statesArray[sectionTwo.employerState]}</Text>         
            </View>
 
            <View style={styles.gridItem30}>

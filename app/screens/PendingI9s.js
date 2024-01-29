@@ -10,6 +10,7 @@ import { Path, Svg } from 'react-native-svg';
 import { Text } from '@react-native-material/core';
 import { SvgIconHolder } from '../components/SvgIconHolder';
 import { formatDate } from '../utils/GlobalFunctions';
+import SplashScreen from '../components/SpalshScreen';
 
 export const PendingI9s = ({navigation}) => {
   const [user, setUser] = useState(null);
@@ -81,7 +82,7 @@ const onRefresh = React.useCallback(() => {
   };
 
   if (loading) {
-    return <Text>Loading</Text>;
+    return <SplashScreen/>
   } else {
     return (
         <View style={{height:'100%'}}>
